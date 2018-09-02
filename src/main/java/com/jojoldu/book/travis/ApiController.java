@@ -19,8 +19,8 @@ import java.util.List;
 public class ApiController {
     private final Environment env;
 
-    @GetMapping("/activeProfile")
-    public String activeProfile() {
+    @GetMapping("/profile")
+    public String profile() {
         List<String> profiles = Arrays.asList(env.getActiveProfiles());
 
         if(profiles.contains("set1")){

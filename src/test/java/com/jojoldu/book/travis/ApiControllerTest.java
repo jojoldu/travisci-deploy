@@ -30,7 +30,7 @@ public class ApiControllerTest {
         String expectedProfile = "set1";
 
         //when
-        String profile = apiController.activeProfile();
+        String profile = apiController.profile();
 
         //then
         assertThat(expectedProfile, is(profile));
