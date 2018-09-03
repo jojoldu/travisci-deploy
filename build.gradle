@@ -16,7 +16,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.jojoldu.book'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-'+new Date().format("yyyyMMddHHmmss") // 같은 Version이라도 Jar명 겹치지 않도록 하기 위해
 sourceCompatibility = 1.8
 
 repositories {
