@@ -15,6 +15,20 @@ cache:
 # Travis CI에서 실행할 명령어
 script: "./gradlew clean build"
 
+deploy:
+- provider: s3
+  access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: deploy-devbeginner
+  region: ap-northeast-2
+  skip_cleanup: true
+  local_dir: deploy
+  wait-until-deployed: true
+  on:
+    repo: jojoldu/travisci-deploy
+    branch: master
+
+
 # CI 실행 완료시 메일로 알람
 notifications:
   email:
