@@ -17,12 +17,12 @@ script: "./gradlew clean build"
 
 # script가 끝나고 deploy가 시작되기전 실행할 명령어
 before_deploy:
-- mkdir -p deploy-files && mkdir -p deploy
-- cp build/libs/*.jar deploy-files/
 - cp -r code-deploy/ deploy-files/
+- cp build/libs/*.jar deploy-files/
 - cd deploy-files
 - zip -r deploy-files *
 - cd ../
+- mkdir -p deploy
 - mv deploy-files/deploy-files.zip deploy/deploy-files.zip
 
 deploy:
