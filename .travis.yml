@@ -15,14 +15,26 @@ cache:
 # Travis CI에서 실행할 명령어
 script: "./gradlew clean build"
 
+# script가 끝나고 deploy가 시작되기전 실행할 명령어
+before_deploy:
+- mkdir -p deploy-files && mkdir -p deploy
+- cp build/libs/*.jar deploy-files/
+- cp -r scripts/ deploy-files/
+- cp appspec.yml deploy-files/
+- cd deploy-files
+- zip -r deploy-files *
+- cd ../
+- mv deploy-files/deploy-files.zip deploy/deploy-files.zip
+
 deploy:
 - provider: s3
   access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
   secret_access_key: $AWS_SECRET_KEY
-  bucket: deploy-devbeginner
+  bucket: dwlee-code-deploy
   region: ap-northeast-2
   skip_cleanup: true
   local_dir: deploy
+  upload-dir: travisci-deploy
   wait-until-deployed: true
   on:
     repo: jojoldu/travisci-deploy
