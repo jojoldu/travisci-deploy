@@ -19,8 +19,7 @@ script: "./gradlew clean build"
 before_deploy:
 - mkdir -p deploy-files && mkdir -p deploy
 - cp build/libs/*.jar deploy-files/
-- cp -r scripts/ deploy-files/
-- cp appspec.yml deploy-files/
+- cp -r code-deploy/ deploy-files/
 - cd deploy-files
 - zip -r deploy-files *
 - cd ../
@@ -39,7 +38,19 @@ deploy:
   on:
     repo: jojoldu/travisci-deploy
     branch: master
-
+- provider: codedeploy
+  access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: dwlee-code-deploy
+  key: travisci-deploy/deploy-files.zip
+  bundle_type: zip
+  application: dwlee-travisci
+  deployment_group: travisci-deploy
+  region: ap-northeast-2
+  wait-until-deployed: true
+  on:
+    repo: jojoldu/travisci-deploy
+    branch: master
 
 # CI 실행 완료시 메일로 알람
 notifications:
