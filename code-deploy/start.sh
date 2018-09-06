@@ -13,7 +13,5 @@ echo "  > Jar 파일을 ${jar_dir_path}로 복사합니다."
 cp /home/ec2-user/deploy/*.jar ${jar_dir_path}
 jar_deploy_path=${jar_dir_path}${jar_name}
 
-RUN_COMMAND="nohup java -jar ${jar_deploy_path} >> /home/ec2-user/app/nohup.out 2>&1&"
-
-echo "  > ${RUN_COMMAND}"
-${RUN_COMMAND}
+echo "  > ${jar_deploy_path}를 실행합니다."
+nohup java -jar ${jar_deploy_path} >> /home/ec2-user/app/nohup.out 2>&1 &
