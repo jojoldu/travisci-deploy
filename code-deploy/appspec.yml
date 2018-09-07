@@ -12,19 +12,19 @@ permissions:
   group: ec2-user
 
 hooks:
-  AfterInstall:
+  BeforeInstall:
   - location: stop.sh # Nginx와 연결되어 있지 않은 Spring Boot를 종료합니다.
     timeout: 60
     runas: ec2-user
-  ApplicationStart:
+  AfterInstall:
   - location: start.sh # Nginx와 연결되어 있지 않은 Port로 새 버전의 Spring Boot를 시작합니다.
     timeout: 60
     runas: ec2-user
-  ValidateService:
+  ApplicationStart:
   - location: health.sh # 새 Spring Boot가 정상적으로 실행됐는지 확인 합니다.
     timeout: 60
     runas: ec2-user
-  BeforeAllowTraffic:
+  ValidateService:
   - location: switch.sh # Nginx와 새 Spring Boot를 연결합니다.
     timeout: 30
     runas: ec2-user
