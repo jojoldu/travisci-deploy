@@ -31,3 +31,5 @@ function checkSwitch()
         exit 1
     fi
 }
+
+switch
